@@ -37,7 +37,7 @@ jobs:
             echo "--- Testing $lab ---"
             (cd $lab && python -m pytest tests/ --tb=short \
               --json-report \
-              --json-report-file=../../test_results_${lab}.json \
+              --json-report-file=../test_results_${lab}.json \
               -v) || true
           done
 

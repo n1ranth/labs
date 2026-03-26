@@ -13,6 +13,7 @@ LABS = [
     ("lab-03-toon-convert","Lab 03: TOON Converter"),
     ("lab-04-vehicle-detect","Lab 04: Vehicle Detection"),
     ("lab-05-rag-qa",      "Lab 05: RAG Q&A"),
+    ("lab-06-healthcare-agents", "Lab 06: Healthcare Agents"),
 ]
 POINTS_PER_LAB = 20
 

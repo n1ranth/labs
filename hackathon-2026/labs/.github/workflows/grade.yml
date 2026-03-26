@@ -33,8 +33,7 @@ jobs:
         run: |
           # Run each lab in its own directory to avoid module name clashes
           set +e  # don't stop on test failures
-          cd hackathon-2026/labs || true
-          for lab in lab-01-api-fetcher lab-02-llm-json lab-03-toon-convert lab-04-vehicle-detect lab-05-rag-qa lab-06-healthcare-agents; do
+          for lab in lab-01-api-fetcher lab-02-llm-json lab-03-toon-convert lab-04-vehicle-detect lab-05-rag-qa; do
             echo "--- Testing $lab ---"
             (cd $lab && python -m pytest tests/ --tb=short \
               --json-report \
@@ -47,9 +46,7 @@ jobs:
 
 
       - name: 📊 Compute & Post Score
-        run: |
-          cd hackathon-2026/labs || true
-          python grader/score.py
+        run: python grader/score.py
 
       - name: 📤 Upload Test Results
         uses: actions/upload-artifact@v4

@@ -1,16 +1,21 @@
 def json_to_toon(data: list[dict]) -> str:
     """
-    Convert a list of uniform dicts to TOON format.
+    Convert dataset analysis or suggestions data to TOON format for token efficiency.
 
-    Example:
-        Input:  [{"id": 1, "name": "Alice"}, {"id": 2, "name": "Bob"}]
+    Example for dataset analysis:
+        Input:  [{"column": "age", "missing_percent": 12.5, "dtype": "int64"}]
         Output:
-            # fields: id, name
-            1 | Alice
-            2 | Bob
+            # fields: column, missing_percent, dtype
+            age | 12.5 | int64
+
+    Example for suggestions:
+        Input:  [{"column": "age", "suggestion": "Fill with median (25)", "confidence": "high"}]
+        Output:
+            # fields: column, suggestion, confidence
+            age | Fill with median (25) | high
 
     Returns:
-        A single TOON-format string.
+        A single TOON-format string optimized for LLM consumption.
     """
     if not data:
         return ""

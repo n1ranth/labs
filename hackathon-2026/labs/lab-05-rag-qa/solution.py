@@ -9,10 +9,28 @@ def retrieve(chunks: list[str], question: str) -> str:
     Returns:
         The single chunk string with the highest word overlap score.
     """
-    # TODO: Tokenize question (split on spaces, lowercase)
-    # TODO: For each chunk, count how many question words appear in it
-    # TODO: Return the chunk with the highest count
-    pass
+    if not chunks:
+        return "No relevant context found."
+    
+    # Tokenize question (split on spaces, lowercase)
+    question_words = set(word.lower() for word in question.split() if word.strip())
+    
+    if not question_words:
+        return chunks[0]  # Return first chunk if no question words
+    
+    # For each chunk, count how many question words appear in it
+    best_chunk = chunks[0]
+    best_score = 0
+    
+    for chunk in chunks:
+        chunk_lower = chunk.lower()
+        score = sum(1 for word in question_words if word in chunk_lower)
+        
+        if score > best_score:
+            best_score = score
+            best_chunk = chunk
+    
+    return best_chunk
 
 
 def answer(chunks: list[str], question: str) -> dict:
@@ -27,6 +45,16 @@ def answer(chunks: list[str], question: str) -> dict:
         A dict with keys: 'context' (str) and 'answer' (str).
         'answer' must be a non-empty string.
     """
-    # TODO: Call retrieve() to get the best chunk
-    # TODO: Return {"context": <chunk>, "answer": <any non-empty string>}
-    pass
+    # Call retrieve() to get the best chunk
+    context = retrieve(chunks, question)
+    
+    # Return a simple answer based on the context
+    if context == "No relevant context found.":
+        answer_text = "I don't have enough information to answer that question."
+    else:
+        answer_text = "Based on the provided context, here's what I can tell you."
+    
+    return {
+        "context": context,
+        "answer": answer_text
+    }
